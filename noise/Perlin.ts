@@ -1,18 +1,20 @@
-import { World, Plugin } from "https://deno.land/x/caviar/mod.ts";
+import { World, Plugin } from "https://deno.land/x/caviar@1.0.2/mod.ts";
 // https://github.com/josephg/noisejs
 
 class Grad {
-    constructor(x, y, z) {
-        this.x = x; this.y = y; this.z = z;
+    constructor(
+        public x: number, 
+        public y: number, 
+        public z: number
+    ) {}
+
+    public dot2(x: number, y: number) {
+        return this.x * x + this.y * y;
     }
 
-    dot2(x, y) {
-        return this.x * x + this.y * y;
-    };
-
-    dot3(x, y, z) {
+    public dot3(x: number, y: number, z: number) {
         return this.x * x + this.y * y + this.z * z;
-    };
+    }
 }
 
 const grad3 = [
@@ -45,12 +47,13 @@ const G3 = 1 / 6;
 const fade = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
 
 
-const lerp = (a, b, t) => (1 - t) * a + t * b;
+const lerp = (a: number, b: number, t: number) => (1 - t) * a + t * b;
 
-export class PerlinNoise {
-    public perm: Array<number>;
-    public gradP: Array<number>;
+export class PerlinNoise extends Plugin {
+    public perm: any;
+    public gradP: any;
     constructor(public world: World) {
+        super(world);
         this.perm = new Array(512);
         this.gradP = new Array(512);
         this.setSeed(0);
@@ -82,7 +85,7 @@ export class PerlinNoise {
         }
     }
 
-    public simplex2(xin, yin): number {
+    public simplex2(xin: number, yin: number){
         let perm = this.perm;
         let gradP = this.gradP;
 
@@ -132,7 +135,7 @@ export class PerlinNoise {
         return 70 * (n0 + n1 + n2);
     }
 
-    public simplex3(xin, yin, zin): number {
+    public simplex3(xin: number, yin: number, zin: number) {
         let perm = this.perm;
         let gradP = this.gradP;
 
@@ -211,7 +214,7 @@ export class PerlinNoise {
 
     }
 
-    public perlin2(x, y): number {
+    public perlin2(x: number, y: number) {
         let perm = this.perm;
         let gradP = this.gradP;
 
@@ -231,7 +234,7 @@ export class PerlinNoise {
             fade(y));
     }
 
-    public perlin3(x, y, z): number {
+    public perlin3(x: number, y: number, z: number): number {
         let perm = this.perm;
         let gradP = this.gradP;
 
