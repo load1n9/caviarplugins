@@ -53,7 +53,7 @@ export class PerlinNoise extends Plugin {
     public perm: any;
     public gradP: any;
     constructor(public world: World) {
-        super(world);
+        super(this.world);
         this.perm = new Array(512);
         this.gradP = new Array(512);
         this.setSeed(0);
