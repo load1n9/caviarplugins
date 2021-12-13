@@ -52,8 +52,8 @@ const lerp = (a: number, b: number, t: number) => (1 - t) * a + t * b;
 export class PerlinNoise extends Plugin {
     public perm: any;
     public gradP: any;
-    constructor(public world: World) {
-        super(this.world);
+    constructor(world: World) {
+        super(world);
         this.perm = new Array(512);
         this.gradP = new Array(512);
         this.setSeed(0);
